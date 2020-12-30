@@ -27,19 +27,19 @@ bool tokenizer(std::string& input_string)
 
 	int occurances = 0;
 	std::string range;
-	const char* start; 
+	const char* start;
 	const char* finish;
 	//std::vector<std::string> rangeSplit;
 	std::string password;
 	char letter;
-	
+
 
 	//learn more about stream iterators
 	std::stringstream ss(input_string);
 	std::istream_iterator<std::string> begin(ss);
 	std::istream_iterator<std::string> end;
 	std::vector<std::string> vstrings(begin, end);
-	
+
 	//for (int i = 0; i < vstrings.size(); i++)
 	//{
 		//std::cout << vstrings[i] << std::endl;
@@ -51,56 +51,52 @@ bool tokenizer(std::string& input_string)
 	letter = vstrings[1][0];
 	password = vstrings[2];
 
-	std::cout << range << std::endl;
+	//std::cout << range << std::endl;
 
 	std::vector<int> rangeSplit = split(range, '-');
 
-	
 
-	std::cout << rangeSplit.size() <<  std::endl;
+
+	//std::cout << rangeSplit.size() << std::endl;
 
 	std::cout << rangeSplit[0] << " " << rangeSplit[1] << std::endl;
 
-	int lower = rangeSplit[0];// = std::atoi(rangeSplit[0]);
-	int upper = rangeSplit[1];
+	int first = rangeSplit[0] - 1;// = std::atoi(rangeSplit[0]);
+	int second = rangeSplit[1] - 1;
 
 
-	//remove the colon
-	
-	//-48 to remove the ascii encoding
-	//start = rstrings[0].c_str();
-	//finish = rstrings[2].c_str();
 
-	//int lower = std::atoi(start);
-	//int upper = std::atoi(finish);
 
-	std::cout << letter<< " " << lower << " " << upper << std::endl;
+	std::cout << letter << " " << first << " " << second << " " << password << std::endl;
 
-	if (lower < 0)
-	{
-		lower = 0;
-	}
+	std::cout << password[first] << " " << password[second] << " " << password << std::endl;
+
 
 	//std::cout << upper << " " << lower << std::endl;
 
-	for (int i = 0; i < password.size(); i++)
-	{
-		if (password[i] == letter)
-		{
-			occurances++;
-		}
-	}
 
-	if (occurances >= lower && occurances <= upper)
+	if ((password[first] == letter) && (password[second] != letter))
 	{
 		return true;
+				
+	}
+	if ((password[first] != letter) && (password[second] == letter))
+	{
+		return true;
+		
+	}
+	if (password[first] == letter && password[second] == letter)
+	{
+		return false;
+	}
+	if(password[first] != letter && password[second] != letter)
+	{
+		return false;
 	}
 	else
 	{
 		return false;
 	}
-
-
 	
 }
 
@@ -112,11 +108,7 @@ int main()
 {
 	std::ifstream file;
 	file.open("../../day2.txt");
-
-	//std::vector<std::string> init_stream;
-
-	//std::vector<bool> rule_match;
-
+		
 	std::string input_string;
 
 	int valid = 0;
@@ -141,7 +133,7 @@ int main()
 		}
 
 		round++;
-		std::cout << "round: " << round << std::endl;
+		//std::cout << "round: " << round << std::endl;
 
 		if (file.fail())
 		{
