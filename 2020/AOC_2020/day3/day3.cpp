@@ -12,7 +12,7 @@ int slopeTransit(std::vector<std::string>& map, int right, int down)
 
 
 	int j = 0;
-	for (int i = 1; i < map.size(); i+=down)
+	for (int i = down; i < map.size(); i+=down)
 	{
 		j += right;
 
@@ -42,7 +42,6 @@ int main()
 
 	std::vector<std::string> map;
 	int trees = 0;
-	int open = 0;
 
 	int slope1 = 0;
 	int slope2 = 0;
@@ -79,7 +78,7 @@ int main()
 	std::cout << slope1 << " " << slope2 << " " << slope3 <<
 		" " << slope4 << " " << slope5 << std::endl;
 
-	int answer = slope1 * slope2;
+	uint64_t answer = slope1 * slope2 ;
 
 	answer *= slope3;
 	answer *= slope4;
